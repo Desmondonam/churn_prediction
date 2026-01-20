@@ -1,7 +1,10 @@
-pandas 
+pandas
 numpy
-streamlit
+scikit-learn
+xgboost
+lightgbm
 matplotlib
 seaborn
+shap
+streamlit
 plotly
-scikit-learn
