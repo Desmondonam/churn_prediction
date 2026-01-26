@@ -74,8 +74,8 @@ def load_models():
 
 @st.cache_data
 def load_training_data():
-    path = r'C:\Users\Admin\Desktop\Freelance\Denis\Projects\Retention_Engine\Data\churn_preprocessed.csv'
-    df = pd.read_csv(path)
+    url = r'https://github.com/Desmondonam/churn_prediction/blob/main/Data/churn_preprocessed.csv'
+    df = pd.read_csv(url)
     return df
 
 # @st.cache_resource
@@ -88,7 +88,8 @@ training_df = load_training_data()
 # explainer = load_explainer(xgb_model)
 
 # Load original data for reference
-original_df = pd.read_csv('C:/Users/Admin/Desktop/Freelance/Denis/Projects/Retention_Engine/Data/churn.csv')
+url = 'https://raw.githubusercontent.com/Desmondonam/churn_prediction/refs/heads/main/Data/churn.csv'
+original_df = pd.read_csv(url)
 original_df['Churn'] = (original_df['Churn?'].astype(str).str.strip() == 'True.').astype(int)
 
 # ============================================================================
@@ -341,24 +342,24 @@ if page == "🎯 Single Customer Analysis":
     # SHAP Explanation
     st.subheader("📊 Feature Contribution Analysis (SHAP)")
     
-    try:
-        shap_values = explainer.shap_values(X_pred)
-        if isinstance(shap_values, list):
-            shap_values = shap_values[1]
+    # try:
+    #     shap_values = explainer.shap_values(X_pred)
+    #     if isinstance(shap_values, list):
+    #         shap_values = shap_values[1]
         
-        # Create SHAP force plot
-        fig_shap = plt.figure(figsize=(12, 3))
-        shap.force_plot(
-            explainer.expected_value[1] if isinstance(explainer.expected_value, list) else explainer.expected_value,
-            shap_values[0],
-            X_pred.iloc[0],
-            matplotlib=True,
-            show=False
-        )
-        st.pyplot(fig_shap, use_container_width=True)
+    #     # Create SHAP force plot
+    #     fig_shap = plt.figure(figsize=(12, 3))
+    #     shap.force_plot(
+    #         explainer.expected_value[1] if isinstance(explainer.expected_value, list) else explainer.expected_value,
+    #         shap_values[0],
+    #         X_pred.iloc[0],
+    #         matplotlib=True,
+    #         show=False
+    #     )
+    #     st.pyplot(fig_shap, use_container_width=True)
         
-    except Exception as e:
-        st.warning(f"Could not generate SHAP explanation: {str(e)}")
+    # except Exception as e:
+    #     st.warning(f"Could not generate SHAP explanation: {str(e)}")
 
 # ============================================================================
 # PAGE 2: BATCH ANALYSIS
