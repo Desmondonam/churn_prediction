@@ -74,7 +74,7 @@ def load_models():
 
 @st.cache_data
 def load_training_data():
-    url = r'https://github.com/Desmondonam/churn_prediction/blob/main/Data/churn_preprocessed.csv'
+    url = 'https://raw.githubusercontent.com/Desmondonam/churn_prediction/refs/heads/main/Data/churn_preprocessed.csv'
     df = pd.read_csv(url)
     return df
 
