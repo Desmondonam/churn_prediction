@@ -56,7 +56,7 @@ st.markdown("""
 # LOAD MODELS & DATA
 # ============================================================================
 
-@st.cache_resource
+
 def load_models():
     with open('models/xgboost_model.pkl', 'rb') as f:
         xgb_model = pickle.load(f)
@@ -74,20 +74,21 @@ def load_models():
 
 @st.cache_data
 def load_training_data():
-    df = pd.read_csv('Data/churn_preprocessed.csv')
+    path = r'C:\Users\Admin\Desktop\Freelance\Denis\Projects\Retention_Engine\Data\churn_preprocessed.csv'
+    df = pd.read_csv(path)
     return df
 
-@st.cache_resource
-def load_explainer(model):
-    return shap.TreeExplainer(model)
+# @st.cache_resource
+# def load_explainer(model):
+#     return shap.TreeExplainer(model)
 
 # Load models
 xgb_model, lgb_model, scaler, feature_cols = load_models()
 training_df = load_training_data()
-explainer = load_explainer(xgb_model)
+# explainer = load_explainer(xgb_model)
 
 # Load original data for reference
-original_df = pd.read_csv('/mnt/user-data/uploads/churn.csv')
+original_df = pd.read_csv('C:/Users/Admin/Desktop/Freelance/Denis/Projects/Retention_Engine/Data/churn.csv')
 original_df['Churn'] = (original_df['Churn?'].astype(str).str.strip() == 'True.').astype(int)
 
 # ============================================================================
