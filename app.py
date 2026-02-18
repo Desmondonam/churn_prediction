@@ -171,7 +171,7 @@ def main():
         }
         
         features_df = pd.DataFrame(features_info)
-        st.dataframe(features_df, use_container_width=True, hide_index=True)
+        st.dataframe(features_df, use_container_width=True) # , hide_index=True
         
         st.write("---")
         
