@@ -8,4 +8,4 @@ seaborn
 shap
 streamlit
 plotly
-altair
+altair==4.2.2
