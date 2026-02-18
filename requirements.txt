@@ -9,4 +9,4 @@ shap
 streamlit
 plotly
 altair==4.2.2
-imghdr
+# imghdr
