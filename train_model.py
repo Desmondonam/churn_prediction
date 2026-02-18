@@ -31,7 +31,7 @@ class ChurnPredictor:
         # Display basic info
         print(f"\nDataset shape: {df.shape}")
         print(f"\nColumns: {df.columns.tolist()}")
-        print(f"\nMissing values:\n{df.isnull().sum()}")
+        print(f"\nMissing values:\n{df.isnull().sum().sum()}")
         print(f"\nChurn distribution:\n{df['Churn?'].value_counts()}")
         
         return df
@@ -55,7 +55,7 @@ class ChurnPredictor:
         
         # Encode target variable
         if 'Churn?' in df_processed.columns:
-            df_processed['Churn?'] = df_processed['Churn?'].map({True: 1, False: 0, 'True': 1, 'False': 0})
+            df_processed['Churn?'] = df_processed['Churn?'].map({True: 1, False: 0, 'True.': 1, 'False.': 0})
         
         # One-hot encode State
         if 'State' in df_processed.columns:
@@ -87,6 +87,12 @@ class ChurnPredictor:
         calls_cols = [c for c in df_processed.columns if 'Calls' in c and c != 'CustServ Calls']
         if calls_cols:
             df_processed['Total_Calls'] = df_processed[calls_cols].sum(axis=1)
+
+        # Display basic info
+        print(f"\nDataset shape: {df_processed.shape}")
+        print(f"\nColumns: {df_processed.columns.tolist()}")
+        print(f"\nMissing values:\n{df_processed.isnull().sum().sum()}")
+        print(f"\nChurn distribution:\n{df_processed['Churn?'].value_counts()}")
         
         return df_processed
     
@@ -95,6 +101,7 @@ class ChurnPredictor:
         print("\nTraining model...")
         
         # Separate features and target
+        # df = df.dropna()
         X = df.drop('Churn?', axis=1)
         y = df['Churn?']
         
@@ -102,8 +109,8 @@ class ChurnPredictor:
         
         # Split data
         X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=test_size, random_state=random_state, stratify=y
-        )
+            X, y, test_size=test_size, random_state=random_state
+        ) # , stratify=y
         
         # Scale features
         X_train_scaled = self.scaler.fit_transform(X_train)
